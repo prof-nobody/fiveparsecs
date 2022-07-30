@@ -1,0 +1,40 @@
+{% extends 'crew/../base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}
+    Crew - Protective Equipment
+{% endblock %}
+{% block bootstrap5_before_content %}
+    <div class="container-fluid bg-light py-3 "><h4>Five Parsecs From Home Crew Manager</h4></div>
+{% endblock %}
+{% block bootstrap5_content %}
+
+    <div class="container-sm  ">
+        <div class="row my-5 bg-light justify-content-center ">
+
+            <h5 class="text-center">{{ title }}</h5>
+
+                    <div class="col-sm-2 ">Species</div>
+                    <div class="col-sm-1 ">R</div>
+                    <div class="col-sm-1 ">SP</div>
+                    <div class="col-sm-1 ">CS</div>
+                    <div class="col-sm-1 ">T</div>
+                    <div class="col-sm-1 ">S</div>
+                    <div class="col-sm-2"><a href="{% url 'species_create' %}">Add Species</a> </div>
+                    <hr>
+                    {% for item in species_list %}
+                        <div class="col-sm-2 ">{{ item.get_species_display }}</div>
+                        <div class="col-sm-1 ">{{ item.reactions }}</div>
+                        <div class="col-sm-1 ">{{ item.speed }}</div>
+                        <div class="col-sm-1 ">{{ item.combat_skill }}</div>
+                        <div class="col-sm-1 ">{{ item.toughness }}</div>
+                        <div class="col-sm-1 ">{{ item.savvy }}</div>
+                        <div class="col-sm-2"><a href="{% url 'species_update' item.pk %}">Update</a> </div>
+                        <hr>
+                    {% endfor %}
+
+
+        </div>
+    </div>
+{% endblock bootstrap5_content %}

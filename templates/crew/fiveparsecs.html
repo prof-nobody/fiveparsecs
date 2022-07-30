@@ -1,0 +1,83 @@
+{% extends 'crew/../base.html' %}
+
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block title %}
+    Crew - Protective Equipment
+{% endblock %}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Audiowide:400');
+h5.audio {
+    font-family: 'Audiowide', cursive;
+}
+</style>
+
+{% block bootstrap5_before_content %}
+    <img src="{% static 'banner_five_parsecs.png' %}" class="img-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light shadow" id="mainNav">
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url '5p_home' %}">Crew Manager</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="#">About</a>
+                        </li>
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="#">Policy</a>
+                        </li>
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="#">Contact</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="navbar-link text-black">
+                                {{ user.get_username }}
+                            </li>
+                            <li class="nav-item text-black">
+
+                                <a class="nav-link text-black font-weight-bold" href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item text-black">
+                                <a class="nav-link text-black font-weight-bold" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+        </div>
+    </nav>
+
+
+
+
+{% endblock %}
+{% block bootstrap5_content %}
+
+
+
+    <div class="container-fluid"></div>
+    <div class="container-sm  ">
+        <div class="row my-5 bg-light justify-content-center ">
+
+            <h5 class="text-center">Welcome to the Crew Manager</h5>
+            <p>This is an app I am developing for <i>Five Parsecs From Home</i> table top game. You can purchase a copy of this game from <a href="https://www.modiphius.net/en-us/products/five-parsecs-from-home">Modiphius</a>,
+                publisher of the 3rd edition.
+                Five Parsecs From Home was written and designed by <a href="https://www.patreon.com/nordicweasel">Ivan Sorensen</a> </p>
+            <p>This is a fan project and is not endorse by the publisher, author, or other interested parties. </p>
+            <h6>About Five Parsecs from Home</h6>
+            <p>Five Parsecs From Home is a solo adventure wargame where you assemble a ragtag crew of galactic trailblazers and head out to explore the stars, pick up jobs, and every now and then —  engage in some action-packed, sci-fi combat!</p>
+            <h6>About Modiphius</h6>
+            <p>Modiphius is the brainchild of gaming entrepreneur Chris Birch who founded the business in 2012 with his wife Rita before launching the successful Achtung! Cthulhu gaming universe via Kickstarter in early 2013.</p>
+
+
+
+
+        </div>
+    </div>
+{% endblock bootstrap5_content %}

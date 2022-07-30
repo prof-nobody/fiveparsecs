@@ -1,0 +1,27 @@
+{% extends 'crew/../base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}
+    Crew - Protective Equipment
+{% endblock %}
+
+{% block bootstrap5_content %}
+
+    <div class="container-sm  ">
+        <div class="row my-5 bg-light justify-content-center ">
+
+            <h5 class="text-center">{{ title }}</h5>
+
+                    {% for crew in crewmates %}
+                        <div class="col-sm-2 my-2">{{ crew.name }}</div>
+                        <div class="col-sm-1 my-2">{{ crew.experience_points }}</div>
+                        <div class="col-md-5 my-2">{{ crew.class }}</div>
+                        <div class="col-sm-4"><a href="{% url 'update_crewmate' crew.pk %}">Update</a> </div>
+                        <hr>
+                    {% endfor %}
+
+
+        </div>
+    </div>
+{% endblock bootstrap5_content %}
