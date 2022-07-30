@@ -193,7 +193,7 @@ class Ship(models.Model):
     hull_points_cur = models.CharField(max_length=5,)
     traits = ArrayField(models.CharField(max_length=200), blank=True)
     upgrades = ArrayField(models.CharField(max_length=200), blank=True)
-    roll = IntegerRangeField(default=0)
+    roll = IntegerRangeField(null=True)
 
     def __str__(self):
         return self.name
@@ -241,6 +241,9 @@ class Species(models.Model):
     toughness = models.CharField(max_length=30)
     savvy = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.get_species_display()
+
 
 # probably could have made the three of these the same and just added a category - but now we have 3 tables and it
 # should work just fine.
@@ -250,23 +253,32 @@ class Background(models.Model):
     effect = ArrayField(models.CharField(max_length=300), blank=True)
     resources = ArrayField(models.CharField(max_length=300), blank=True)
     starting_rolls = ArrayField(models.CharField(max_length=300), blank=True)
-    roll = IntegerRangeField(default=0)
+    roll = IntegerRangeField(null=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Motivation(models.Model):
-    roll = IntegerRangeField(default=0)
+    roll = IntegerRangeField(null=True)
     name = models.CharField(max_length=300)
     effect = ArrayField(models.CharField(max_length=300), blank=True)
     resources = ArrayField(models.CharField(max_length=300), blank=True)
     starting_rolls = ArrayField(models.CharField(max_length=300), blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Class(models.Model):
-    roll = IntegerRangeField(default=0)
+    roll = IntegerRangeField(null=True)
     name = models.CharField(max_length=300)
     effect = ArrayField(models.CharField(max_length=300), blank=True)
     resources = ArrayField(models.CharField(max_length=300), blank=True)
     starting_rolls = ArrayField(models.CharField(max_length=300), blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Crewmate(models.Model):
@@ -289,7 +301,7 @@ class Crewmate(models.Model):
     weaponB = models.CharField(max_length=100, blank=True)
     pistol = models.CharField(max_length=100, blank=True)
     blade = models.CharField(max_length=100, blank=True)
-    implants = ArrayField(models.CharField(max_length=200), blank=True)
+    implants = ArrayField(models.CharField(max_length=200, ), blank=True, default=list)
 
     def __str__(self):
         return self.name

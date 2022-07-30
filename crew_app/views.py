@@ -140,7 +140,7 @@ class CrewView(generic.ListView):
     template_name = 'crew/crewView.html'
     model = Crewmate
 
-    fields = ['name', 'experience_points', 'class', ]
+    fields = ['name', 'experience_points', 'crew_class', ]
     context_object_name = 'crewmates'
 
     def get_queryset(self):
@@ -149,16 +149,16 @@ class CrewView(generic.ListView):
 
 class CreateCrewmateView(CreateView):
     template_name = 'crew/equipment.html'
-    model = ProtectiveDevice
-    fields = ['name', 'species', 'background', 'motivation', 'leader', ]
-    success_url = reverse_lazy('gear')
+    model = Crewmate
+    fields = ['name', 'species', 'background', 'motivation', 'crew_class', 'leader', ]
+    success_url = reverse_lazy('crew_list')
 
 
 class UpdateCrewmateView(UpdateView):
     template_name = 'crew/equipment.html'
-    model = ProtectiveDevice
-    fields = ['name', 'equipment', ]
-    success_url = reverse_lazy('gear')
+    model = Crewmate
+    fields = ['name', 'species', 'background', 'motivation', 'crew_class', 'leader', ]
+    success_url = reverse_lazy('crew_list')
 
 
 @api_view(['GET', 'POST'])

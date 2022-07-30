@@ -12,12 +12,20 @@
         <div class="row my-5 bg-light justify-content-center ">
 
             <h5 class="text-center">{{ title }}</h5>
-
+                    <div class="col-sm-2 text-center">Name</div>
+                    <div class="col-sm-1 text-center">XP</div>
+                    <div class="col-sm-2 text-center">Motivation</div>
+                    <div class="col-sm-2 text-center">Background</div>
+                    <div class="col-sm-2 text-center">Class</div>
+                    <div class="col-sm-2"><a href="{% url 'crew_create' %}">Add</a> </div>
+                    <hr>
                     {% for crew in crewmates %}
-                        <div class="col-sm-2 my-2">{{ crew.name }}</div>
-                        <div class="col-sm-1 my-2">{{ crew.experience_points }}</div>
-                        <div class="col-md-5 my-2">{{ crew.class }}</div>
-                        <div class="col-sm-4"><a href="{% url 'update_crewmate' crew.pk %}">Update</a> </div>
+                        <div class="col-sm-2 my-2 text-center">{{ crew.name }}</div>
+                        <div class="col-sm-1 my-2 text-center">{{ crew.experience_points }}</div>
+                        <div class="col-sm-2 my-2 text-center">{{ crew.motivation }}</div>
+                        <div class="col-sm-2 my-2 text-center">{{ crew.background }}</div>
+                        <div class="col-sm-2 my-2 text-center">{{ crew.crew_class }}</div>
+                        <div class="col-sm-2"><a href="{% url 'crew_update' crew.pk %}">Update</a> </div>
                         <hr>
                     {% endfor %}
 
