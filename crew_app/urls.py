@@ -14,4 +14,10 @@ urlpatterns = [
     path('config/background/update/<int:pk>', UpdateBackgroundView.as_view(), name='background_update'),
     path('config/background/', BackgroundView.as_view(), name='background_list'),
     path('config/background/create/', CreateBackgroundView.as_view(), name='background_create'),
+    path('config/motivation/update/<int:pk>', UpdateBackgroundView.as_view(), name='motivation_update'),
+    path('config/motivation/', BackgroundView.as_view(), name='motivation_list'),
+    path('config/motivation/create/', CreateBackgroundView.as_view(), name='motivation_create'),
+    path('config/class/update/<int:pk>', UpdateClassView.as_view(), name='class_update'),
+    path('config/class/', ClassView.as_view(), name='class_list'),
+    path('config/class/create/', CreateClassView.as_view(), name='class_create'),
 ]

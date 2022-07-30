@@ -92,21 +92,21 @@ class CreateMotivationView(CreateView):
     template_name = 'crew/background.html'
     model = Motivation
     fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
-    success_url = reverse_lazy('Motivation_list')
+    success_url = reverse_lazy('motivation_list')
 
 
 class UpdateMotivationView(UpdateView):
     template_name = 'crew/background.html'
     model = Motivation
     fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
-    success_url = reverse_lazy('Motivation_list')
+    success_url = reverse_lazy('motivation_list')
 
 
 class MotivationView(generic.ListView):
-    template_name = 'crew/backgroundView.html'
+    template_name = 'crew/motivationView.html'
     model = Motivation
 
-    context_object_name = 'Motivation_list'
+    context_object_name = 'motivation_list'
 
     def get_queryset(self):
         return Motivation.objects.order_by('roll')
@@ -116,21 +116,21 @@ class CreateClassView(CreateView):
     template_name = 'crew/background.html'
     model = Class
     fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
-    success_url = reverse_lazy('Class_list')
+    success_url = reverse_lazy('class_list')
 
 
 class UpdateClassView(UpdateView):
     template_name = 'crew/background.html'
     model = Class
     fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
-    success_url = reverse_lazy('Class_list')
+    success_url = reverse_lazy('class_list')
 
 
 class ClassView(generic.ListView):
-    template_name = 'crew/backgroundView.html'
+    template_name = 'crew/classView.html'
     model = Class
 
-    context_object_name = 'Class_list'
+    context_object_name = 'class_list'
 
     def get_queryset(self):
         return Class.objects.order_by('roll')

@@ -191,8 +191,9 @@ class Ship(models.Model):
     debt = models.CharField(max_length=4,)
     hull_points_max = models.CharField(max_length=5,)
     hull_points_cur = models.CharField(max_length=5,)
-    traits = models.CharField(max_length=500, blank=True,)
-    upgrades = models.CharField(max_length=500, blank=True,)
+    traits = ArrayField(models.CharField(max_length=200), blank=True)
+    upgrades = ArrayField(models.CharField(max_length=200), blank=True)
+    roll = IntegerRangeField(default=0)
 
     def __str__(self):
         return self.name
@@ -241,6 +242,9 @@ class Species(models.Model):
     savvy = models.CharField(max_length=30)
 
 
+# probably could have made the three of these the same and just added a category - but now we have 3 tables and it
+# should work just fine.
+
 class Background(models.Model):
     name = models.CharField(max_length=300)
     effect = ArrayField(models.CharField(max_length=300), blank=True)
@@ -276,15 +280,16 @@ class Crewmate(models.Model):
     luck_points = models.CharField(max_length=30, blank=True,)
     equipment = models.CharField(max_length=400, blank=True,)
     experience_points = models.CharField(max_length=30, default=0)
-    background = models.CharField(max_length=200, blank=True,)
-    motivation = models.CharField(max_length=200, blank=True,)
-    crew_class = models.CharField(max_length=200, blank=True,)
+    background = models.ForeignKey(Background, on_delete=models.CASCADE,)
+    motivation = models.ForeignKey(Motivation, on_delete=models.CASCADE,)
+    crew_class = models.ForeignKey(Class, on_delete=models.CASCADE,)
     leader = models.BooleanField(default=False)
     notes = models.CharField(max_length=500, blank=True, )
     weaponA = models.CharField(max_length=100, blank=True)
     weaponB = models.CharField(max_length=100, blank=True)
     pistol = models.CharField(max_length=100, blank=True)
     blade = models.CharField(max_length=100, blank=True)
+    implants = ArrayField(models.CharField(max_length=200), blank=True)
 
     def __str__(self):
         return self.name

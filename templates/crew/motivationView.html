@@ -1,0 +1,36 @@
+{% extends 'crew/../base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}
+    Crew - Protective Equipment
+{% endblock %}
+
+{% block bootstrap5_content %}
+
+    <div class="container-sm  ">
+        <div class="row my-5 bg-light justify-content-center ">
+
+            <h5 class="text-center">{{ title }}</h5>
+                    <div class="col-sm-2 ">Roll</div>
+                    <div class="col-sm-2 ">Background</div>
+                    <div class="col-sm-2 ">Effect</div>
+                    <div class="col-sm-2 ">Resources</div>
+                    <div class="col-sm-2 ">Starting Rolls</div>
+                    <div class="col-sm-2"><a href="{% url 'motivation_create' %}">Add</a> </div>
+                    <hr>
+                    {% for background in motivation_list %}
+                        <div class="col-sm-2 my-2">{{ background.roll }}</div>
+                        <div class="col-sm-2 my-2">{{ background.name }}</div>
+
+                        <div class="col-sm-2 my-2">{{ background.effect }}</div>
+                        <div class="col-sm-2 my-2">{{ background.resources }}</div>
+                        <div class="col-sm-2 my-2">{{ background.starting_rolls }}</div>
+                        <div class="col-sm-2"><a href="{% url 'motivation_update' background.pk %}">Update</a> </div>
+                        <hr>
+                    {% endfor %}
+
+
+        </div>
+    </div>
+{% endblock bootstrap5_content %}

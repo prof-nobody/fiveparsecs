@@ -36,5 +36,11 @@ urlpatterns = [
     path('fpfh/config/species/', SpeciesListView.as_view(), name='species_list'),
     path('fpfh/config/species/create/', CreateSpeciesView.as_view(), name='species_create'),
     path('fpfh/config/species/update/<int:pk>', UpdateSpeciesView.as_view(), name='species_update'),
+    path('fpfh/config/motivation/update/<int:pk>', UpdateMotivationView.as_view(), name='motivation_update'),
+    path('fpfh/config/motivation/', MotivationView.as_view(), name='motivation_list'),
+    path('fpfh/config/motivation/create/', CreateMotivationView.as_view(), name='motivation_create'),
+    path('fpfh/config/class/update/<int:pk>', UpdateClassView.as_view(), name='class_update'),
+    path('fpfh/config/class/', ClassView.as_view(), name='class_list'),
+    path('fpfh/config/class/create/', CreateClassView.as_view(), name='class_create'),
     path('', include('blog.urls')),
 ]
