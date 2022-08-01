@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-
+import keys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'crew_app.apps.CrewAppConfig',
     'rest_framework',
     'django_bootstrap5',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = 'theprofessor@profnobody.com'
+EMAIL_HOST = 'smtp.sendgrid.com'
+EMAIL_HOST_USER = keys.sendgrid['user']
+EMAIL_HOST_PASSWORD = keys.sendgrid['key']
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 ROOT_URLCONF = 'profnobody.urls'
 
@@ -93,6 +102,17 @@ DATABASES = {
         'PORT': '5432',
     },
 }
+
+# custom and allauth settings
+
+AUTH_USER_MODEL = "account.CustomUser"
+LOGIN_REDIRECT_URL = 'fpfh'
+LOGOUT_REDIRECT_URL = 'fpfh'
+SITE_ID = 1
+AUTHENTICATION_BACKENDS = (
+                            "django.contrib.auth.backends.ModelBackend",
+                            "allauth.account.auth_backends.AuthenticationBackend",
+                           )
 
 
 # Password validation

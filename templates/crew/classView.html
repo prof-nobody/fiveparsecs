@@ -1,4 +1,4 @@
-{% extends 'crew/../base.html' %}
+{% extends 'crew/crew_base.html' %}
 
 {% load django_bootstrap5 %}
 
@@ -17,7 +17,7 @@
                     <div class="col-sm-2 ">Effect</div>
                     <div class="col-sm-2 ">Resources</div>
                     <div class="col-sm-2 ">Starting Rolls</div>
-                    <div class="col-sm-2"><a href="{% url 'class_create' %}">Add</a> </div>
+                    <div class="col-sm-2"><a href="{% url 'crew_app:class_create' %}">Add</a> </div>
                     <hr>
                     {% for background in class_list %}
                         <div class="col-sm-2 my-2">{{ background.roll }}</div>
@@ -26,7 +26,7 @@
                         <div class="col-sm-2 my-2">{{ background.effect }}</div>
                         <div class="col-sm-2 my-2">{{ background.resources }}</div>
                         <div class="col-sm-2 my-2">{{ background.starting_rolls }}</div>
-                        <div class="col-sm-2"><a href="{% url 'class_update' background.pk %}">Update</a> </div>
+                        <div class="col-sm-2"><a href="{% url 'crew_app:class_update' background.pk %}">Update</a> </div>
                         <hr>
                     {% endfor %}
 

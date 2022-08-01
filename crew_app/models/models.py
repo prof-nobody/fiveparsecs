@@ -342,7 +342,7 @@ class Campaign(models.Model):
         ('IN', 'Insanity'),
     )
 
-    campaign_owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    campaign_owner = models.ForeignKey('auth.CustomUser', on_delete=models.CASCADE)
     crew_size = models.CharField(
         max_length=1,
         choices=CREW_SIZE,

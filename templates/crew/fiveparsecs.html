@@ -1,67 +1,26 @@
-{% extends 'crew/../base.html' %}
+{% extends 'crew/crew_base.html' %}
 
-{% load django_bootstrap5 %}
-{% load static %}
-
-{% block title %}
-    Crew - Protective Equipment
-{% endblock %}
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Audiowide:400');
-h5.audio {
-    font-family: 'Audiowide', cursive;
-}
-</style>
-
-{% block bootstrap5_before_content %}
-    <img src="{% static 'banner_five_parsecs.png' %}" class="img-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light shadow" id="mainNav">
-
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url '5p_home' %}">Crew Manager</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">About</a>
-                        </li>
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Policy</a>
-                        </li>
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Contact</a>
-                        </li>
-                        {% if user.is_authenticated %}
-                            <li class="navbar-link text-black">
-                                {{ user.get_username }}
-                            </li>
-                            <li class="nav-item text-black">
-
-                                <a class="nav-link text-black font-weight-bold" href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item text-black">
-                                <a class="nav-link text-black font-weight-bold" href="{% url 'login' %}?next={{ request.path }}">Login</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
-        </div>
-    </nav>
-
-
-
-
-{% endblock %}
 {% block bootstrap5_content %}
 
-
+<span></span>
 
     <div class="container-fluid"></div>
+
+    <div class="card-group container-sm mt-5">
+        <h4 class="card-header text-center">Development Updates</h4>
+
+        {% for update in updates %}
+        <div class="card w-100">
+
+                    <div class="card-body">
+                    <h5 class="card-title">{{ update.title }}</h5>
+                    <p class="card-text">{{update.content|slice:":100" }}...</p>
+                    <a href="{% url 'crew_app:updates_detail' update.slug  %}" class="card-link">Read More &rarr;</a>
+                    </div>
+
+        </div>
+        {% endfor %}
+    </div>
     <div class="container-sm  ">
         <div class="row my-5 bg-light justify-content-center ">
 

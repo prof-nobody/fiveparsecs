@@ -6,14 +6,45 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from django.urls import reverse_lazy
-
+from django.utils.text import slugify
 from .models.models import *
+from .models.update import Update
 from .serializers import *
 # Create your views here.
 
 
-class HomePageView(generic.TemplateView):
+class HomePageView(generic.ListView):
     template_name = 'crew/fiveparsecs.html'
+    model = Update
+    context_object_name = 'updates'
+
+    def get_queryset(self):
+        return Update.objects.order_by('-created_on')[:3]
+
+
+class CreateUpdatesView(LoginRequiredMixin, CreateView):
+    template_name = 'crew/updates.html'
+    model = Update
+    fields = ['title', 'content', ]
+    success_url = reverse_lazy('5p_home')
+
+    def form_valid(self, form):
+        form.instance.slug = slugify(form.instance.title)
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class UpdateUpdatesView(LoginRequiredMixin, UpdateView):
+    template_name = 'crew/updates.html'
+    model = Update
+    fields = ['title', 'content', ]
+    success_url = reverse_lazy('5p_home')
+
+
+class DetailUpdatesView(generic.DetailView):
+    template_name = 'crew/fiveparsecs_details.html'
+    model = Update
+    context_object_name = 'update'
 
 
 class SpeciesListView(generic.ListView):

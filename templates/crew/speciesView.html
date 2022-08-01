@@ -21,7 +21,7 @@
                     <div class="col-sm-1 ">CS</div>
                     <div class="col-sm-1 ">T</div>
                     <div class="col-sm-1 ">S</div>
-                    <div class="col-sm-2"><a href="{% url 'species_create' %}">Add Species</a> </div>
+                    <div class="col-sm-2"><a href="{% url 'crew_app:species_create' %}">Add Species</a> </div>
                     <hr>
                     {% for item in species_list %}
                         <div class="col-sm-2 ">{{ item.get_species_display }}</div>
@@ -30,7 +30,7 @@
                         <div class="col-sm-1 ">{{ item.combat_skill }}</div>
                         <div class="col-sm-1 ">{{ item.toughness }}</div>
                         <div class="col-sm-1 ">{{ item.savvy }}</div>
-                        <div class="col-sm-2"><a href="{% url 'species_update' item.pk %}">Update</a> </div>
+                        <div class="col-sm-2"><a href="{% url 'crew_app:species_update' item.pk %}">Update</a> </div>
                         <hr>
                     {% endfor %}
 
