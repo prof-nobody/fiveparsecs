@@ -10,8 +10,10 @@ class EquipmentTraitAdmin(admin.ModelAdmin):
 class EquipmentAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
 
+
 class ProtectiveDeviceAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
+
 
 class ShipAdmin(admin.ModelAdmin):
     list_display = ('name', 'type',)
@@ -26,7 +28,7 @@ class CrewMateAdmin(admin.ModelAdmin):
 
 
 class CampaignAdmin(admin.ModelAdmin):
-    list_display = ('campaign_owner', 'crew_size', 'difficulty',)
+    list_display = ('owner', 'crew_size', 'difficulty',)
 
 
 admin.site.register(CrewRoster, CrewAdmin)

@@ -185,7 +185,7 @@ class Ship(models.Model):
         ('BSW', 'Built from Salvaged Wrecks'),
         ('RMS', 'Retired Military Patrol Ship'),
     )
-
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=300,)
     type = models.CharField(max_length=200, choices=SHIP_TYPE)
     debt = models.CharField(max_length=4,)
@@ -284,6 +284,7 @@ class Class(models.Model):
 class Crewmate(models.Model):
 
     # crew_roster = models.ForeignKey(CrewRoster, on_delete=models.CASCADE, )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200)
     species = models.ForeignKey(
         Species,
@@ -342,7 +343,7 @@ class Campaign(models.Model):
         ('IN', 'Insanity'),
     )
 
-    campaign_owner = models.ForeignKey('auth.CustomUser', on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     crew_size = models.CharField(
         max_length=1,
         choices=CREW_SIZE,
@@ -390,7 +391,7 @@ class CrewRoster(models.Model):
         ('Credits', 'In it for the credits'),
         ('Dream', 'Living the dream!'),
     )
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     crew_name = models.CharField(max_length=200)
     crew_origin_met = models.CharField(max_length=300)
     crew_origin_description = models.CharField(max_length=300)

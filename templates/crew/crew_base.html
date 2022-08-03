@@ -51,15 +51,19 @@
                         </li>
                         {% if user.is_authenticated %}
                             <li class="navbar-link text-black">
-                                {{ user.get_username }}
+                                <a class="nav-link text-black font-weight-bold" href="{% url 'users:profile' user.pk %}">{{ user.get_username }}</a>
+
                             </li>
                             <li class="nav-item text-black">
 
-                                <a class="nav-link text-black font-weight-bold" href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+                                <a class="nav-link text-black font-weight-bold" href="{% url 'account_logout' %}?next={{ request.path }}">Logout</a>
                             </li>
                         {% else %}
                             <li class="nav-item text-black">
-                                <a class="nav-link text-black font-weight-bold" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+                                <a class="nav-link text-black font-weight-bold" href="{% url 'account_login' %}?next={{ request.path }}">Login</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-black font-weight-bold" href="{% url 'account_signup' %}?next={{ request.path }}">Signup</a>
                             </li>
                         {% endif %}
                     </ul>

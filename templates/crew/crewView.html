@@ -16,7 +16,8 @@
                     <div class="col-sm-1 text-center">XP</div>
                     <div class="col-sm-2 text-center">Motivation</div>
                     <div class="col-sm-2 text-center">Background</div>
-                    <div class="col-sm-2 text-center">Class</div>
+                    <div class="col-sm-1 text-center">Class</div>
+                    <div class="col-sm-1 text-center">Owner</div>
                     <div class="col-sm-2"><a href="{% url 'crew_app:crew_create' %}">Add</a> </div>
                     <hr>
                     {% for crew in crewmates %}
@@ -24,7 +25,8 @@
                         <div class="col-sm-1 my-2 text-center">{{ crew.experience_points }}</div>
                         <div class="col-sm-2 my-2 text-center">{{ crew.motivation }}</div>
                         <div class="col-sm-2 my-2 text-center">{{ crew.background }}</div>
-                        <div class="col-sm-2 my-2 text-center">{{ crew.crew_class }}</div>
+                        <div class="col-sm-1 my-2 text-center">{{ crew.crew_class }}</div>
+                        <div class="col-sm-1 my-2 text-center">{{ crew.owner }}</div>
                         <div class="col-sm-2"><a href="{% url 'crew_app:crew_update' crew.pk %}">Update</a> </div>
                         <hr>
                     {% endfor %}

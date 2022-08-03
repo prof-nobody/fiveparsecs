@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from crew_app.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework import routers
 
 urlpatterns = [
@@ -25,10 +27,10 @@ urlpatterns = [
 
     # re_path(r'^api/crewroster/$', views.crew_roster),
     # re_path(r'^api/crewroster/([0-9])$', views.crew_roster_details),
-    path('account/', include('django.contrib.auth.urls')),
+    # path('account/', include('django.contrib.auth.urls')),
     path('account/', include('allauth.urls')),
     path('fpfh/', include('crew_app.urls')),
-
+    path('users/', include('users.urls')),
 
 
     #path('fpfh/config/updates/create/', CreateUpdatesView.as_view(), name='updates_create'),
@@ -54,3 +56,6 @@ urlpatterns = [
     #path('fpfh/config/class/create/', CreateClassView.as_view(), name='class_create'),
     path('', include('blog.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

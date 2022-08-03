@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zv2u4yt!u-8#_kx_z)h%-vv4@m!xf!j1yf8^=j!4m)*g29miw-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-LOGIN_REDIRECT_URL = "/"
+
 ALLOWED_HOSTS = ['192.168.86.41', 'localhost']
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000'
@@ -46,7 +46,12 @@ INSTALLED_APPS = [
     'crew_app.apps.CrewAppConfig',
     'rest_framework',
     'django_bootstrap5',
-    'accounts.apps.AccountsConfig',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
@@ -105,15 +111,48 @@ DATABASES = {
 
 # custom and allauth settings
 
-AUTH_USER_MODEL = "account.CustomUser"
-LOGIN_REDIRECT_URL = 'fpfh'
-LOGOUT_REDIRECT_URL = 'fpfh'
+# AUTH_USER_MODEL = "account.CustomUser"
+LOGIN_REDIRECT_URL = 'fpfh/'
+LOGOUT_REDIRECT_URL = 'fpfh/'
 SITE_ID = 1
 AUTHENTICATION_BACKENDS = (
                             "django.contrib.auth.backends.ModelBackend",
                             "allauth.account.auth_backends.AuthenticationBackend",
                            )
-
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time',
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.12',
+    },
+     'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -150,6 +189,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

@@ -12,11 +12,12 @@ class Update(models.Model):
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=300, unique=True,)
     content = models.TextField()
-    author = models.ForeignKey("auth.CustomUser", on_delete=models.CASCADE, related_name='fp_updates')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='fp_updates')
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_on']
+        permissions = [('is_staff', 'is staff', )]
 
     def __str__(self):
         return self.title

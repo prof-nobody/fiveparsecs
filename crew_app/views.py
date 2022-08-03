@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -22,7 +22,8 @@ class HomePageView(generic.ListView):
         return Update.objects.order_by('-created_on')[:3]
 
 
-class CreateUpdatesView(LoginRequiredMixin, CreateView):
+class CreateUpdatesView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ('is_staff', )
     template_name = 'crew/updates.html'
     model = Update
     fields = ['title', 'content', ]
@@ -34,7 +35,8 @@ class CreateUpdatesView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class UpdateUpdatesView(LoginRequiredMixin, UpdateView):
+class UpdateUpdatesView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ('is_staff',)
     template_name = 'crew/updates.html'
     model = Update
     fields = ['title', 'content', ]
@@ -171,7 +173,7 @@ class CrewView(generic.ListView):
     template_name = 'crew/crewView.html'
     model = Crewmate
 
-    fields = ['name', 'experience_points', 'crew_class', ]
+    fields = ['name', 'experience_points', 'crew_class', 'owner', ]
     context_object_name = 'crewmates'
 
     def get_queryset(self):
@@ -185,11 +187,15 @@ class CreateCrewmateView(CreateView):
     success_url = reverse_lazy('crew_list')
 
 
-class UpdateCrewmateView(UpdateView):
+class UpdateCrewmateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'crew/equipment.html'
     model = Crewmate
     fields = ['name', 'species', 'background', 'motivation', 'crew_class', 'leader', ]
     success_url = reverse_lazy('crew_list')
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.owner == self.request.user
 
 
 @api_view(['GET', 'POST'])
