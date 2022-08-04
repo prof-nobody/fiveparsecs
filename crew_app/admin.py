@@ -16,7 +16,7 @@ class ProtectiveDeviceAdmin(admin.ModelAdmin):
 
 
 class ShipAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type',)
+    list_display = ('name',)
 
 
 class CrewAdmin(admin.ModelAdmin):

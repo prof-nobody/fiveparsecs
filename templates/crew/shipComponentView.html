@@ -1,0 +1,31 @@
+{% extends 'crew/crew_base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}
+    Crew - Protective Equipment
+{% endblock %}
+
+{% block bootstrap5_content %}
+
+    <div class="container-sm  ">
+        <div class="row my-5 bg-light justify-content-center ">
+
+            <h5 class="text-center">{{ title }}</h5>
+                <div class="col-sm-1 my-2">Roll</div>
+                <div class="col-sm-1 my-2">Type</div>
+                <div class="col-md-4 my-2">Description</div>
+                <div class="col-sm-2 my-2"><a href="{% url 'crew_app:shipcomponent_create' %}">+ Add</a> </div>
+                    <hr>
+                    {% for hull in shipcomponent_list %}
+                        <div class="col-sm-1 my-2">{{ hull.name }}</div>
+                        <div class="col-sm-1 my-2">{{ hull.cost }}</div>
+                        <div class="col-md-4 my-2">{{ hull.description }}</div>
+                        <div class="col-sm-2"><a href="{% url 'crew_app:shipcomponent_update' hull.pk %}">Update</a> </div>
+                        <hr>
+                    {% endfor %}
+
+
+        </div>
+    </div>
+{% endblock bootstrap5_content %}

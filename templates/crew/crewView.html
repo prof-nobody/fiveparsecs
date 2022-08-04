@@ -3,35 +3,36 @@
 {% load django_bootstrap5 %}
 
 {% block title %}
-    Crew - Protective Equipment
+    Crew Cards
 {% endblock %}
 
 {% block bootstrap5_content %}
+    <h3 class="text-center mt-5">Crew Roster</h3>
+    <div class="container ">
+        <div class="row row-cols-3 mt-5">
 
-    <div class="container-sm  ">
-        <div class="row my-5 bg-light justify-content-center ">
 
-            <h5 class="text-center">{{ title }}</h5>
-                    <div class="col-sm-2 text-center">Name</div>
-                    <div class="col-sm-1 text-center">XP</div>
-                    <div class="col-sm-2 text-center">Motivation</div>
-                    <div class="col-sm-2 text-center">Background</div>
-                    <div class="col-sm-1 text-center">Class</div>
-                    <div class="col-sm-1 text-center">Owner</div>
-                    <div class="col-sm-2"><a href="{% url 'crew_app:crew_create' %}">Add</a> </div>
-                    <hr>
-                    {% for crew in crewmates %}
-                        <div class="col-sm-2 my-2 text-center">{{ crew.name }}</div>
-                        <div class="col-sm-1 my-2 text-center">{{ crew.experience_points }}</div>
-                        <div class="col-sm-2 my-2 text-center">{{ crew.motivation }}</div>
-                        <div class="col-sm-2 my-2 text-center">{{ crew.background }}</div>
-                        <div class="col-sm-1 my-2 text-center">{{ crew.crew_class }}</div>
-                        <div class="col-sm-1 my-2 text-center">{{ crew.owner }}</div>
-                        <div class="col-sm-2"><a href="{% url 'crew_app:crew_update' crew.pk %}">Update</a> </div>
-                        <hr>
-                    {% endfor %}
 
+                {% for crew in crewmates %}
+                    <div class="col">
+                        <div class="card h-100 pb-5">
+                            <img src={{ crew.image.url }}>
+                            <div class="card-body">
+                                <h5 class="card-title">Name: {{ crew.name }}</h5>
+                                <div class="col-sm-10">Species: {{ crew.species }}</div>
+                                <div class="col-sm-10">Class: {{ crew.crew_class }}</div>
+                                <div class="col-sm-10">Motive: {{ crew.motivation }}</div>
+                                <div class="col-md-12">Background: {{ crew.background }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                {% endfor %}
 
         </div>
+
+
+
     </div>
 {% endblock bootstrap5_content %}

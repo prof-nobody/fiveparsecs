@@ -1,0 +1,35 @@
+{% extends 'crew/crew_base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}
+    Crew Cards
+{% endblock %}
+
+{% block bootstrap5_content %}
+
+    <div class="container-sm  ">
+        <div class="row my-5 bg-light justify-content-center ">
+
+            <div class="card-group container-md mt-5">
+                <h4 class="card-header text-center">Crew</h4>
+                {% for crew in crewmates %}
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Name: {{ crew.name }}</h5>
+                            <div class="col-sm-2">{{ crew.crew_class }}</div>
+                            <div class="col-sm-2">{{ crew.motivation }}</div>
+                            <div class="col-sm-2">{{ crew.background }}</div>
+                        </div>
+
+                    </div>
+
+
+                {% endfor %}
+            </div>
+
+
+
+        </div>
+    </div>
+{% endblock bootstrap5_content %}

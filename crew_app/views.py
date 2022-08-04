@@ -10,7 +10,106 @@ from django.utils.text import slugify
 from .models.models import *
 from .models.update import Update
 from .serializers import *
+from django.shortcuts import get_object_or_404
 # Create your views here.
+
+
+class CrewRosterView(generic.ListView):
+    pass
+
+
+class RosterDetailView(generic.DetailView):
+    pass
+
+
+class CreateRosterView(CreateView):
+    pass
+
+
+class UpdateRosterView(UpdateView):
+    pass
+
+
+class ListShipView(generic.ListView):
+    context_object_name = "ships"
+    template_name = "crew/shipView.html"
+    model = Ship
+
+    def get_queryset(self):
+        return Ship.objects.order_by('pk')
+
+
+class ShipDetailView(generic.DetailView):
+    context_object_name = "ship"
+
+
+class CreateShipView(CreateView):
+    model = Ship
+    fields = ['hull', 'name', 'debt']
+    template_name = 'crew/ship.html'
+    success_url = reverse_lazy('crew_app:ship_list')
+
+    def form_valid(self, form):
+        hul = form.instance.hull
+        hp = get_object_or_404(ShipHull, pk=hul.pk)
+        form.instance.hull_points_max = hp.hull_points
+        form.instance.hull_points_cur = hp.hull_points
+        form.instance.upgrades = ['none']
+        return super().form_valid(form)
+
+
+class UpdateShipView(UpdateView):
+    model = Ship
+    fields = ['hull', 'name', 'debt']
+    template_name = 'crew/ship.html'
+    success_url = reverse_lazy('crew_app:ship_list')
+
+
+class ListConfigShipView(generic.ListView):
+
+    template_name = 'crew/shipConfigView.html'
+    model = ShipHull
+    context_object_name = 'shiphull_list'
+
+    def get_queryset(self):
+        return ShipHull.objects.order_by('type')
+
+
+class CreateConfigShipView(CreateView):
+    template_name = 'crew/shipConfig.html'
+    model = ShipHull
+    fields = ['roll', 'hull', 'traits', 'hull_points', 'debt']
+    success_url = reverse_lazy('crew_app:shipconfig_list')
+
+
+class UpdateConfigShipView(UpdateView):
+    template_name = 'crew/shipConfig.html'
+    model = ShipHull
+    fields = ['roll', 'hull', 'traits', 'hull_points', 'debt']
+    success_url = reverse_lazy('crew_app:shipconfig_list')
+
+
+class ListConfigShipComponentView(generic.ListView):
+    template_name = 'crew/shipComponentView.html'
+    model = ShipComponent
+    context_object_name = 'shipcomponent_list'
+
+    def get_queryset(self):
+        return ShipComponent.objects.order_by('name')
+
+
+class CreateConfigShipComponentView(CreateView):
+    template_name = 'crew/shipConfig.html'
+    model = ShipComponent
+    fields = ['name', 'cost', 'description']
+    success_url = reverse_lazy('crew_app:shipcomponent_list')
+
+
+class UpdateConfigShipComponentView(UpdateView):
+    template_name = 'crew/shipConfig.html'
+    model = ShipComponent
+    fields = ['name', 'cost', 'description']
+    success_url = reverse_lazy('crew_app:shipcomponent_list')
 
 
 class HomePageView(generic.ListView):
@@ -184,14 +283,14 @@ class CreateCrewmateView(CreateView):
     template_name = 'crew/equipment.html'
     model = Crewmate
     fields = ['name', 'species', 'background', 'motivation', 'crew_class', 'leader', ]
-    success_url = reverse_lazy('crew_list')
+    success_url = reverse_lazy('crew_app:crew_list')
 
 
 class UpdateCrewmateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'crew/equipment.html'
     model = Crewmate
     fields = ['name', 'species', 'background', 'motivation', 'crew_class', 'leader', ]
-    success_url = reverse_lazy('crew_list')
+    success_url = reverse_lazy('crew_app:crew_list')
 
     def test_func(self):
         obj = self.get_object()

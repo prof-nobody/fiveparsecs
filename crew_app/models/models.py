@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.contrib.postgres.fields import ArrayField, IntegerRangeField
+from PIL import Image
 
 
 class EquipmentTrait(models.Model):
@@ -170,7 +171,14 @@ class CrewStash(models.Model):
     pass
 
 
-class Ship(models.Model):
+class ShipComponent(models.Model):
+    name = models.CharField(max_length=200)
+    cost = models.IntegerField(null=True)
+    description = models.TextField()
+    traits = ArrayField(models.CharField(max_length=200), blank=True, null=True,)
+
+
+class ShipHull(models.Model):
     SHIP_TYPE = (
         ('WF', 'Worn Freighter'),
         ('RTT', 'Retired Troop Transport'),
@@ -185,15 +193,25 @@ class Ship(models.Model):
         ('BSW', 'Built from Salvaged Wrecks'),
         ('RMS', 'Retired Military Patrol Ship'),
     )
+    hull = models.CharField(max_length=200, choices=SHIP_TYPE)
+    traits = ArrayField(models.CharField(max_length=200), blank=True)
+    hull_points = models.IntegerField()
+    debt = models.CharField(max_length=200)
+    roll = IntegerRangeField(null=True)
+
+    def __str__(self):
+        return self.get_hull_display()
+
+
+class Ship(models.Model):
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=300,)
-    type = models.CharField(max_length=200, choices=SHIP_TYPE)
     debt = models.CharField(max_length=4,)
-    hull_points_max = models.CharField(max_length=5,)
-    hull_points_cur = models.CharField(max_length=5,)
-    traits = ArrayField(models.CharField(max_length=200), blank=True)
+    hull = models.ForeignKey(ShipHull, on_delete=models.CASCADE, null=True)
+    hull_points_max = models.IntegerField(null=True)
+    hull_points_cur = models.IntegerField(null=True)
     upgrades = ArrayField(models.CharField(max_length=200), blank=True)
-    roll = IntegerRangeField(null=True)
 
     def __str__(self):
         return self.name
@@ -245,8 +263,8 @@ class Species(models.Model):
         return self.get_species_display()
 
 
-# probably could have made the three of these the same and just added a category - but now we have 3 tables and it
-# should work just fine.
+# probably could have made the three of these the same and just added a category -
+# # should work just fine. should work just fine.
 
 class Background(models.Model):
     name = models.CharField(max_length=300)
@@ -285,6 +303,7 @@ class Crewmate(models.Model):
 
     # crew_roster = models.ForeignKey(CrewRoster, on_delete=models.CASCADE, )
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(default="default.png", upload_to="crew_pics")
     name = models.CharField(max_length=200)
     species = models.ForeignKey(
         Species,
@@ -306,6 +325,17 @@ class Crewmate(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self):
+        super().save()
+
+        img = Image.open(self.image.path)  # Open image
+
+        # resize image
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)  # Resize image
+            img.save(self.image.path)  # Save it again and override the larger image
 
 
 class Campaign(models.Model):
@@ -398,7 +428,7 @@ class CrewRoster(models.Model):
     crew_mates = models.ManyToManyField(Crewmate)
     current_campaign = models.ForeignKey(Campaign, on_delete=models.PROTECT)
     prev_campaigns = models.CharField(max_length=300)
-    ship_type = models.ForeignKey(
+    ship = models.ForeignKey(
         Ship,
         on_delete=models.PROTECT,
     )
