@@ -11,7 +11,6 @@ from .models.models import *
 from .models.update import Update
 from .serializers import *
 from django.shortcuts import get_object_or_404
-# Create your views here.
 
 
 class CrewRosterView(generic.ListView):
@@ -199,14 +198,14 @@ class UpdateProtectiveDeviceView(UpdateView):
 class CreateBackgroundView(CreateView):
     template_name = 'crew/background.html'
     model = Background
-    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
+    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll', ]
     success_url = reverse_lazy('background_list')
 
 
 class UpdateBackgroundView(UpdateView):
     template_name = 'crew/background.html'
     model = Background
-    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
+    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll', ]
     success_url = reverse_lazy('background_list')
 
 
@@ -223,14 +222,14 @@ class BackgroundView(generic.ListView):
 class CreateMotivationView(CreateView):
     template_name = 'crew/background.html'
     model = Motivation
-    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
+    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll', ]
     success_url = reverse_lazy('motivation_list')
 
 
 class UpdateMotivationView(UpdateView):
     template_name = 'crew/background.html'
     model = Motivation
-    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
+    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll', ]
     success_url = reverse_lazy('motivation_list')
 
 
@@ -247,14 +246,14 @@ class MotivationView(generic.ListView):
 class CreateClassView(CreateView):
     template_name = 'crew/background.html'
     model = Class
-    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
+    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll', ]
     success_url = reverse_lazy('class_list')
 
 
 class UpdateClassView(UpdateView):
     template_name = 'crew/background.html'
     model = Class
-    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll' ]
+    fields = ['name', 'effect', 'resources', 'starting_rolls', 'roll', ]
     success_url = reverse_lazy('class_list')
 
 

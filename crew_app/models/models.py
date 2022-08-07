@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from django.contrib.postgres.fields import ArrayField, IntegerRangeField
+from django.contrib.postgres.fields import ArrayField, IntegerRangeField, HStoreField
 from PIL import Image
 
 
@@ -130,6 +130,7 @@ class Item(models.Model):
     equippable = models.BooleanField(default=False)
     description = models.CharField(max_length=600, null=True)
     trait = models.ManyToManyField(EquipmentTrait, blank=True, )
+    bonus = models.JSONField()
 
     def __str__(self):
         return self.name
@@ -322,6 +323,7 @@ class Crewmate(models.Model):
     pistol = models.CharField(max_length=100, blank=True)
     blade = models.CharField(max_length=100, blank=True)
     implants = ArrayField(models.CharField(max_length=200, ), blank=True, default=list)
+    protective = ArrayField(models.ForeignKey(ProtectiveDevice, on_delete=models.CASCADE), )
 
     def __str__(self):
         return self.name

@@ -15,7 +15,7 @@
 
                 {% for crew in crewmates %}
                     <div class="col">
-                        <div class="card h-100 pb-5">
+                        <div class="card h-100">
                             <img src={{ crew.image.url }}>
                             <div class="card-body">
                                 <h5 class="card-title">Name: {{ crew.name }}</h5>
@@ -24,6 +24,7 @@
                                 <div class="col-sm-10">Motive: {{ crew.motivation }}</div>
                                 <div class="col-md-12">Background: {{ crew.background }}</div>
                             </div>
+                            <div class="card-footer"><button>Add to Crew</button></div>
                         </div>
                     </div>
 
