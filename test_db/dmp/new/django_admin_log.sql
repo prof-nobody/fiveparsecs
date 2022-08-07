@@ -1,0 +1,2 @@
+UPDATE public.django_admin_log SET action_time = '2022-08-01 12:02:35.066313 +00:00', object_id = '1', object_repr = 'GoogleAuth', action_flag = 1, change_message = '[{"added": {}}]', content_type_id = 33, user_id = 1 WHERE id = 1;
+UPDATE public.django_admin_log SET action_time = '2022-08-01 12:36:01.911934 +00:00', object_id = '1', object_repr = 'GoogleAuth', action_flag = 2, change_message = '[{"changed": {"fields": ["Client id", "Secret key"]}}]', content_type_id = 33, user_id = 1 WHERE id = 2;

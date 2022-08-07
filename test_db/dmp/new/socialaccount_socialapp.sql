@@ -1,0 +1,1 @@
+UPDATE public.socialaccount_socialapp SET provider = 'google', name = 'GoogleAuth', client_id = '1014953893261-j5sup4qulg266ra6j0to101aoa8ug3dv.apps.googleusercontent.com', secret = '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', key = '' WHERE id = 1;
