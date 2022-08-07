@@ -1,0 +1,2 @@
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (1, '2022-08-01 12:02:35.066313 +00:00', '1', 'GoogleAuth', 1, '[{"added": {}}]', 33, 1);
+INSERT INTO public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) VALUES (2, '2022-08-01 12:36:01.911934 +00:00', '1', 'GoogleAuth', 2, '[{"changed": {"fields": ["Client id", "Secret key"]}}]', 33, 1);
