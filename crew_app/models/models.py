@@ -323,7 +323,7 @@ class Crewmate(models.Model):
     pistol = models.CharField(max_length=100, blank=True)
     blade = models.CharField(max_length=100, blank=True)
     implants = ArrayField(models.CharField(max_length=200, ), blank=True, default=list)
-    protective = ArrayField(models.ForeignKey(ProtectiveDevice, on_delete=models.CASCADE), )
+    # protective = ArrayField(models.ForeignKey(ProtectiveDevice, on_delete=models.CASCADE), )
 
     def __str__(self):
         return self.name

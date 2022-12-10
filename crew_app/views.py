@@ -170,7 +170,7 @@ class UpdateSpeciesView(UpdateView):
     success_url = reverse_lazy('species_list')
 
 
-class EquipmentView(generic.ListView):
+class ProtectiveDeviceView(generic.ListView):
     template_name = 'crew/gearView.html'
     model = ProtectiveDevice
 
@@ -193,6 +193,31 @@ class UpdateProtectiveDeviceView(UpdateView):
     model = ProtectiveDevice
     fields = ['name', 'category', 'description', 'trait', ]
     success_url = reverse_lazy('gear')
+
+
+class EquipmentView(generic.ListView):
+    template_name = 'crew/gearView.html'
+    model = Equipment
+
+    fields = ['name', 'category', 'equippable', 'stackable', 'description', 'trait', 'range', 'shots', 'dmg', ]
+    context_object_name = 'gear_list'
+
+    def get_queryset(self):
+        return Equipment.objects.order_by('name')
+
+
+class CreateEquipmentView(CreateView):
+    template_name = 'crew/equipment.html'
+    model = Equipment
+    fields = ['name', 'category', 'equippable', 'stackable', 'description', 'trait', 'range', 'shots', 'dmg', ]
+    success_url = reverse_lazy('crew_app:equipment_view')
+
+
+class UpdateEquipmentView(UpdateView):
+    template_name = 'crew/equipment.html'
+    model = Equipment
+    fields = ['name', 'category', 'equippable', 'stackable', 'description', 'trait', 'range', 'shots', 'dmg', ]
+    success_url = reverse_lazy('crew_app:equipment_view')
 
 
 class CreateBackgroundView(CreateView):

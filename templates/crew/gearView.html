@@ -17,7 +17,7 @@
                         <div class="col-sm-2 my-2">{{ item.name }}</div>
                         <div class="col-sm-1 my-2">{{ item.get_category_display }}</div>
                         <div class="col-md-5 my-2">{{ item.description }}</div>
-                        <div class="col-sm-4"><a href="{% url 'crew_app:update_gear' item.pk %}">Update</a> </div>
+                        <div class="col-sm-4"><a href="{% url 'crew_app:update_equipment'  item.pk %}">Update</a> </div>
                         <hr>
                     {% endfor %}
 
